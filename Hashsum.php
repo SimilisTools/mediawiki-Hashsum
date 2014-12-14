@@ -2,29 +2,33 @@
  
 # Avoids illegal processing, doesn't cost much, but unnecessary on a correct installation
 if (!defined('MEDIAWIKI')) { die(-1); } 
- 
-# Extension Declaration
-$GLOBALS['wgExtensionCredits']['specialpage'][] = array(
-	'path' => __FILE__,
-	'name' => 'Hashsum',
-	'author' => array('toniher'),
-	'version' => '0.1',
-	'url' => 'https://www.mediawiki/wiki/User:Toniher',
-	'descriptionmsg' => 'hashsum-desc'
-);
- 
-# A var to ease the referencing of files
-$dir = dirname(__FILE__) . '/';
 
-# i18n file referencing
-$GLOBALS['wgMessagesDirs']['Hashsum'] = $dir . 'i18n';
-$GLOBALS['wgExtensionMessagesFiles']['Hashsum'] = $dir . 'Hashsum.i18n.php';
-$GLOBALS['wgExtensionMessagesFiles']['HashsumMagic'] = $dir . 'Hashsum.i18n.magic.php';
+//self executing anonymous function to prevent global scope assumptions
+call_user_func( function() {
+	
+	# Extension Declaration
+	$GLOBALS['wgExtensionCredits']['specialpage'][] = array(
+		'path' => __FILE__,
+		'name' => 'Hashsum',
+		'author' => array('toniher'),
+		'version' => '0.1',
+		'url' => 'https://www.mediawiki/wiki/User:Toniher',
+		'descriptionmsg' => 'hashsum-desc'
+	);
+	
+	# A var to ease the referencing of files
+	$dir = dirname(__FILE__) . '/';
+	
+	# i18n file referencing
+	$GLOBALS['wgMessagesDirs']['Hashsum'] = $dir . 'i18n';
+	$GLOBALS['wgExtensionMessagesFiles']['Hashsum'] = $dir . 'Hashsum.i18n.php';
+	$GLOBALS['wgExtensionMessagesFiles']['HashsumMagic'] = $dir . 'Hashsum.i18n.magic.php';
+	
+	$GLOBALS['wgAutoloadClasses']['Hashsum'] = $dir . 'Hashsum_body.php';
+	
+	$GLOBALS['wgHooks']['ParserFirstCallInit'][] = 'wfRegisterHashsum';
 
-$GLOBALS['wgAutoloadClasses']['Hashsum'] = $dir . 'Hashsum_body.php';
-
-$GLOBALS['wgHooks']['ParserFirstCallInit'][] = 'wfRegisterHashsum';
-
+});
 
 /**
  * @param $parser Parser
