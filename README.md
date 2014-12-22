@@ -12,5 +12,8 @@ The easier way is using [Composer](http://www.mediawiki.org/wiki/Composer). From
 
 The extension provides two functions so far using a different hash function for converting the supplied string argument. 
 
-* 	{{#md5sum|My string}}
-* 	{{#sha1sum|My string}}
+* {{#md5sum:String example}} renders: 18b2e700a83c1cd0175429ae506bd693
+* {{#sha1sum:String example}} renders: 1d396c063cf540c4f7cfe02c1a6f8c99b28abfc8
+
+
+
